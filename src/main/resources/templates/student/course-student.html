@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách Khóa học</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css"> <!-- External CSS -->
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="layout/header :: header('Trang dành cho Học viên')"></div>
+
+<!-- Sidebar -->
+<div th:replace="layout/sidebar :: sidebar"></div>
+
+<div class="container main-content">
+    <h3 class="mt-4">Danh sách khóa học</h3>
+
+    <!-- Grid danh sách khóa học -->
+    <div class="row" style="width: 100%">
+        <div class="col-md-3 mb-12" th:each="course : ${courses}">
+            <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${course.name}">Tên khóa học</h5>
+                        <p class="card-text" th:text="${course.description}">Mô tả</p>
+
+                        <p class="card-text">
+                            <span th:text="${course.getStatusCourse()}" style="color: blue;">Thời gian</span>
+                        </p>
+
+                        <!-- Hiển thị số lượng học viên đã đăng ký -->
+                        <p class="card-text">
+                            <strong>Số học viên đăng ký:</strong>
+                            <span th:text="${course.enrolledStudents}">0</span>
+                            /
+                            <span th:text="${course.maxStudents}">0</span>
+                        </p>
+                        <!-- Hiển thị trạng thái của khóa học -->
+                        <p class="card-text">
+                            <strong>Trạng thái:</strong>
+                            <span th:text="${course.status == 0 ? 'Khóa học đầy' : 'Khóa học còn chỗ'}">Trạng thái</span>
+                        </p>
+
+                        <!-- Kiểm tra xem khóa học đã được đăng ký hay chưa -->
+                        <div th:if="${course.registered == 1}">
+                            <!-- Nếu đã đăng ký, hiển thị thông báo đã đăng ký -->
+                            <span class="badge badge-success">Đã đăng ký</span>
+                        </div>
+
+                        <!-- Nếu khóa học còn chỗ và chưa đăng ký, hiển thị nút đăng ký -->
+                        <div th:if="${course.registered == 0}">
+                            <!-- Nếu khóa học còn chỗ, hiển thị nút đăng ký -->
+                            <div th:if="${course.status == 1}">
+                                <button class="btn btn-primary" th:onclick="'location.href=\'/student/register/' + ${course.id} + '\''">Đăng ký</button>
+                            </div>
+
+                            <!-- Nếu khóa học đã đầy, hiển thị thông báo khóa học đầy -->
+                            <div th:if="${course.status == 0}">
+                                <span class="badge badge-danger">Khóa học đã đầy</span>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kiểm tra nếu có dữ liệu và totalPages > 0 -->
+    <nav aria-label="Page navigation" th:if="${totalPages > 0}">
+        <ul class="pagination justify-content-center mt-5">
+            <!-- Trang trước -->
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{/student/courses(pageIndex=${currentPage > 0 ? currentPage - 1 : 0}, pageSize=${pageSize})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- Các trang -->
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/student/courses(pageIndex=${i}, pageSize=${pageSize})}"
+                   th:text="${i + 1}">1</a>
+            </li>
+
+            <!-- Trang sau -->
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/student/courses(pageIndex=${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}, pageSize=${pageSize})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Nếu không có dữ liệu, có thể hiển thị thông báo -->
+    <div th:if="${totalPages == 0}">
+        <p>Không có khóa học nào để hiển thị.</p>
+    </div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

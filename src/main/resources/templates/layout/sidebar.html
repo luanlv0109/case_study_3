@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar</title>
+</head>
+<body>
+<div th:fragment="sidebar">
+  <div class="sidebar" style="left: 0;
+    top: 70px;
+    width: 220px;
+    background: linear-gradient(to bottom, #00b4db, #0083b0);
+    color: white;
+    position: fixed;
+    height: 100%;
+    padding-top: 40px;
+    z-index: 10;">
+    <h3 style="text-align: center; color: white;">Menu</h3>
+    <ul style="list-style-type: none; padding-left: 10px;">
+
+      <!-- Menu for Admin -->
+      <li   th:if="${session.isAdmin}" style="color: white; padding: 10px; display: block;">
+        <a th:href="@{/admin/course-manage}" style="color: white;">Quản lí khóa học</a>
+      </li>
+      <li   th:if="${session.isAdmin}" style="color: white; padding: 10px; display: block;">
+        <a th:href="@{/admin/weekly-reports}" style="color: white;">Quản lí báo cáo</a>
+      </li>
+
+      <!-- Menu for Regular User -->
+      <li   th:if="${!session.isAdmin}" style="color: white; padding: 10px; display: block;">
+        <a th:href="@{/student/courses}" style="color: white;"> khóa học</a>
+      </li>
+      <li   th:if="${!session.isAdmin}" style="color: white; padding: 10px; display: block;">
+        <a th:href="@{/student/my-courses}" style="color: white;">khóa học đã đăng kí</a>
+      </li>
+      <!-- Logout -->
+        <li><a href="/logout" style="color: #ff4d4d; padding: 10px; display: block;">Đăng xuất</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

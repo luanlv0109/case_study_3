@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title}">Trang Quản Trị</title>
+  <style>
+    body {
+      padding-top: 80px; /* Đảm bảo phần nội dung không bị header che khuất */
+      margin: 0;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #0072ff;
+      color: white;
+      z-index: 1000; /* Đảm bảo header nằm trên cùng */
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 60px; /* Căn giữa dọc cho văn bản trong header */
+      text-align: center;
+    }
+
+    .language-selector {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<header style="position: fixed; top:0; left: 0;right: 0; height: 70px; background-color: #0072ff; z-index: 101"  th:fragment="header(title)">
+  <div style=" color: white; text-align: center;">
+    <h1 th:text="${title}"></h1>
+  </div>
+</header>
+
+<!-- jQuery to handle the language change -->
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>

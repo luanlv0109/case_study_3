@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Quản lý Đăng ký Khóa học</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        /* Đặt toàn bộ chiều cao và margin 0 cho toàn bộ trang */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #00c6ff, #0072ff); /* Nền gradient xanh đẹp */
+        }
+
+        /* Kiểu dáng cho form đăng nhập */
+        form {
+            background-color: white;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #0072ff;
+            margin-bottom: 20px;
+        }
+
+        /* Kiểu cho các nhãn và ô nhập */
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0072ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        /* Kiểu cho thông báo lỗi */
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center my-4">Đăng Nhập</h2>
+            <div th:if="${param.error}">
+                <p class="error-message">Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.</p>
+            </div>
+            <div>
+                <p th:if="${param.logout != null}">Bạn đã đăng xuất thành công. Vui lòng đăng nhập để sử dụng tiếp dịch vụ.</p>
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Nhập username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="/register">Chưa có tài khoản? Đăng ký ngay!</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

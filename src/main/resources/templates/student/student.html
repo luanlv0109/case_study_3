@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xin chào Học viên</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Linked external CSS -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #2196F3;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="layout/header :: header('Trang dành cho Học viên')"></div>
+
+<!-- Sidebar -->
+<div th:replace="layout/sidebar :: sidebar"></div>
+
+<div class="container">
+    <h1>Xin chào Học viên!</h1>
+    <p>Chào mừng bạn đến với hệ thống quản lý khóa học.</p>
+</div>
+<div th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>
