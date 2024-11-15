@@ -1,6 +1,6 @@
 package com.da.app.controller.student;
 
-import com.da.app.dto.UserDTO;
+import com.da.app.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +28,7 @@ public class StudentController {
         if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
             String username = ((org.springframework.security.core.userdetails.User) authentication.getPrincipal()).getUsername();
 
-            UserDTO userDTO = new UserDTO(username);
+            UserDto userDTO = new UserDto(username);
             userDTO.setAdmin(true);
 
             log.info("UserDTO created with username: {}", userDTO.getUsername());

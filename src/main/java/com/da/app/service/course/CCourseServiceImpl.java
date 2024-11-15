@@ -35,18 +35,24 @@ public class CCourseServiceImpl implements ICourseService {
     }
 
     @Override
-    public Page<CourseDTO> filterCourseForStudent(int pageSize, int pageIndex, Long studentId) {
+    public Page<CourseDto> filterCourseForStudent(int pageSize, int pageIndex, Long studentId) {
         return courseRepository.pageFilterCourseForStudent(studentId, PageRequest.of(pageIndex, pageSize));
     }
 
     @Override
-    public Page<CourseDTO> filterCourseByStudentId(int pageSize, int pageIndex, Long studentId) {
+    public Page<CourseDto> filterCourseByStudentId(int pageSize, int pageIndex, Long studentId) {
         return courseRepository.PageFilterCoursesByStudentId(studentId, PageRequest.of(pageIndex, pageSize));
     }
 
     @Override
     public DetailSourceDto getDetailSourceByCourseID(Long id) {
-        DetailSourceDto course = courseRepository.getDetailCourseByCourseId(id);
+        Optional<DetailSourceDto> courseOptional = courseRepository.getDetailCourseByCourseId(id);
+
+        if (!courseOptional.isPresent()) {
+            throw new RuntimeException ("Course with ID " + id + " not found.");
+        }
+
+        DetailSourceDto course = courseOptional.get();
         List<EnrollmentStudentDto> enrollmentStudentDtoList = enrollmentRepository.getEnrollmentStudentByCourseId(id);
         course.setEnrollmentStudents(enrollmentStudentDtoList);
         return course;
@@ -141,12 +147,10 @@ public class CCourseServiceImpl implements ICourseService {
     @Transactional
     @Override
     public boolean createCourse(CourseInput courseInput) {
-        // Kiểm tra xem khóa học có hợp lệ hay không
         if (courseInput.getName() == null || courseInput.getMaxStudents() <= 0 || courseInput.getStartDate() == null || courseInput.getEndDate() == null) {
             return false;
         }
 
-        // Tạo đối tượng khóa học mới từ CourseInput
         Course newCourse = new Course();
         newCourse.setCourseName(courseInput.getName());
         newCourse.setDescription(courseInput.getDescription());
@@ -155,7 +159,6 @@ public class CCourseServiceImpl implements ICourseService {
         newCourse.setEndDate(courseInput.getEndDate());
         newCourse.setEnrolledStudents(0); // Khởi tạo số lượng sinh viên đã đăng ký là 0
         newCourse.setCreatedAt(LocalDateTime.now());
-        // Lưu khóa học vào cơ sở dữ liệu
         courseRepository.save(newCourse);
         log.info("Course with name " + courseInput.getName() + " has been created.");
 

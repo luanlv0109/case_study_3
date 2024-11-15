@@ -1,6 +1,6 @@
 package com.da.app.controller.student;
 
-import com.da.app.dto.CourseDTO;
+import com.da.app.dto.CourseDto;
 import com.da.app.service.course.ICourseService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class StudentCourseController {
             @RequestParam(defaultValue = "0") int pageIndex,
             @RequestParam(defaultValue = "12") int pageSize) {
         Long studentId = (Long) session.getAttribute("userId");
-        Page<CourseDTO> coursePage =  courseService.filterCourseForStudent(pageSize, pageIndex, studentId);
+        Page<CourseDto> coursePage =  courseService.filterCourseForStudent(pageSize, pageIndex, studentId);
         model.addAttribute("courses", coursePage.getContent());
         model.addAttribute("currentPage", pageIndex);
         model.addAttribute("totalPages", coursePage.getTotalPages());
@@ -42,7 +42,7 @@ public class StudentCourseController {
             @RequestParam(defaultValue = "0") int pageIndex,
             @RequestParam(defaultValue = "12") int pageSize) {
         Long studentId = (Long) session.getAttribute("userId");
-        Page<CourseDTO> coursePage =  courseService.filterCourseByStudentId(pageSize, pageIndex, studentId);
+        Page<CourseDto> coursePage =  courseService.filterCourseByStudentId(pageSize, pageIndex, studentId);
         model.addAttribute("courses", coursePage.getContent());
         model.addAttribute("currentPage", pageIndex);
         model.addAttribute("totalPages", coursePage.getTotalPages());

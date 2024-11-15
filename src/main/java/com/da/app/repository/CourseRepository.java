@@ -1,7 +1,7 @@
 package com.da.app.repository;
 
 import com.da.app.domain.Course;
-import com.da.app.dto.CourseDTO;
+import com.da.app.dto.CourseDto;
 import com.da.app.dto.CourseManageDto;
 import com.da.app.dto.DetailSourceDto;
 import com.da.app.dto.ReportCourseDto;
@@ -50,7 +50,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     );
 
     @Query(
-            "SELECT new com.da.app.dto.CourseDTO(" +
+            "SELECT new com.da.app.dto.CourseDto(" +
                     "c.id," +
                     "c.courseName, " +
                     "c.description, " +
@@ -64,13 +64,13 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
                     "AND c.startDate  >= CURRENT_DATE " +  // Nếu studentId là null, lấy tất cả các khóa học
                     "GROUP BY c.id, c.courseName, c.description, c.maxStudents, c.enrolledStudents"
     )
-    Page<CourseDTO> pageFilterCourseForStudent(
+    Page<CourseDto> pageFilterCourseForStudent(
             @Param("studentId") Long studentId,
             Pageable pageable
     );
 
     @Query(
-            "SELECT new com.da.app.dto.CourseDTO(" +
+            "SELECT new com.da.app.dto.CourseDto(" +
                     "c.id, " +
                     "c.courseName, " +
                     "c.description, " +
@@ -82,7 +82,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
                     "WHERE (:studentId is null or e.student.id = :studentId ) " +
                     "GROUP BY c.id, c.courseName, c.description, c.maxStudents, c.enrolledStudents"
     )
-    Page<CourseDTO> PageFilterCoursesByStudentId(@Param("studentId") Long studentId, Pageable pageable);
+    Page<CourseDto> PageFilterCoursesByStudentId(@Param("studentId") Long studentId, Pageable pageable);
 
     @Query(
             "SELECT new com.da.app.dto.DetailSourceDto(" +
@@ -96,7 +96,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
                     "FROM Course c " +
                     "WHERE (:CourseId is null or c.id = :CourseId ) " // Nếu studentId là null, lấy tất cả các khóa học
     )
-    DetailSourceDto getDetailCourseByCourseId(@Param("CourseId") Long CourseId );
+    Optional<DetailSourceDto> getDetailCourseByCourseId(@Param("CourseId") Long CourseId );
 
     @Query("SELECT new com.da.app.dto.ReportCourseDto(" +
             "c.courseName," +

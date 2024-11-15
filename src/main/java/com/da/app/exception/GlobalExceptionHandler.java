@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -18,4 +19,13 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.badRequest().body(errors.toString());
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        String errorMessage = "An unexpected error occurred: " + ex.getMessage();
+
+        return ResponseEntity.badRequest().body(errorMessage);
+    }
+
 }

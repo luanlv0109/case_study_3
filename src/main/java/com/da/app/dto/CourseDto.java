@@ -5,13 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseDTO {
+public class CourseDto {
     private Long id;
     private String name;
     private String description;
@@ -21,7 +20,7 @@ public class CourseDTO {
     private String statusCourse;
     private int registered;
 
-    public CourseDTO(Long id, String name, String description, int maxStudents, int enrolledStudents , LocalDate date , int registered) {
+    public CourseDto(Long id, String name, String description, int maxStudents, int enrolledStudents , LocalDate date , int registered) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -41,7 +40,7 @@ public class CourseDTO {
         }
     }
 
-    public CourseDTO(Long id, String name, String description, int maxStudents, int enrolledStudents , int registered ) {
+    public CourseDto(Long id, String name, String description, int maxStudents, int enrolledStudents , int registered ) {
         this.id = id;
         this.name = name;
         this.description = description;

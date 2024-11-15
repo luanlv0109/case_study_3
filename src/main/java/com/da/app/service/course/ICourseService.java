@@ -1,6 +1,6 @@
 package com.da.app.service.course;
 
-import com.da.app.dto.CourseDTO;
+import com.da.app.dto.CourseDto;
 import com.da.app.dto.CourseInput;
 import com.da.app.dto.CourseManageDto;
 import com.da.app.dto.DetailSourceDto;
@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ICourseService {
     Page<CourseManageDto> filterCourse(int pageSize , int pageIndex);
 
-    Page<CourseDTO> filterCourseForStudent(int pageSize , int pageIndex , Long studentId);
-    Page<CourseDTO> filterCourseByStudentId(int pageSize , int pageIndex , Long studentId);
+    Page<CourseDto> filterCourseForStudent(int pageSize , int pageIndex , Long studentId);
+    Page<CourseDto> filterCourseByStudentId(int pageSize , int pageIndex , Long studentId);
 
     DetailSourceDto getDetailSourceByCourseID(Long id);
 

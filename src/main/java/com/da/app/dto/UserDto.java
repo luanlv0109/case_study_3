@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserDto {
     private String username;
     private boolean isAdmin;
 
-    public UserDTO( String username) {
+    public UserDto(String username) {
         this.username = username;
     }
 }
